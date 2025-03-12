@@ -4,4 +4,7 @@
   padding: 2rem;
   text-align: center;
   height: 70%;
+  background: #6495ed;
+  border: solid 2px white;
+  border-radius: 20px;
 }
