@@ -27,21 +27,28 @@ export default function TournamentBracket() {
   const nextPosition = (event) => {
     if (indiceGrupo >= grupos.length) return; // Se salio
 
-    console.log("Entro para "+indiceGrupo+ " con total de "+grupos.length)
-
     const { origen, destino } = grupos[indiceGrupo];
-    const elemDestino = document.getElementById(destino)?.firstElementChild;
+    const elemDestino = document.getElementById(destino);
 
     if (elemDestino) {
-      elemDestino.textContent = ""; // Limpia
-      const na = Math.random()*2;
+      const nuevoDiv = document.createElement("div");
+      nuevoDiv.className = "bracket-name";
+
+      console.log("Entra elemenD "+destino)
+
+      const na = Math.random() * 2;
       const g = na > 1 ? 0 : 1
-      // origen.forEach(id => {
-        const elemOrigen = document.getElementById(origen[g])?.firstElementChild;
-        if (elemOrigen) {
-          elemDestino.textContent += elemOrigen.textContent + " ";
-        }
-      // });
+      const elemOrigen = document.getElementById(origen[g])?.firstElementChild;
+      let contenido = "";
+      if (elemOrigen) {
+        contenido += elemOrigen.textContent + " ";
+      }
+
+
+      // Asignar el contenido y agregarlo al destino
+      nuevoDiv.textContent = contenido.trim();
+      elemDestino.appendChild(nuevoDiv);
+
     }
 
     // Pasar al siguiente grupo en la siguiente pulsación
@@ -101,10 +108,8 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="9" className="bracket-team winner">
-              <div className="bracket-name"></div>
             </div>
             <div id="10" className="bracket-team loser">
-              <div className="bracket-name"></div>
             </div>
           </div>
           <div className="bracket-matchup" />
@@ -112,10 +117,8 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="11" className="bracket-team winner">
-              <div className="bracket-name"></div>
             </div>
             <div id="12" className="bracket-team loser">
-              <div className="bracket-name"></div>
             </div>
           </div>
           <div className="bracket-matchup" />
@@ -125,10 +128,8 @@ export default function TournamentBracket() {
         <div className="bracket-level">
           <div className="bracket-matchup">
             <div id="13" className="bracket-team">
-              <div className="bracket-name"></div>
             </div>
             <div id="14" className="bracket-team">
-              <div className="bracket-name"></div>
             </div>
           </div>
         </div>
@@ -139,15 +140,12 @@ export default function TournamentBracket() {
           </div>
           <div className="bracket-matchup">
             <div id="30" className="bracket-team winner">
-              <div className="bracket-name"></div>
             </div>
             <div id="31" className="bracket-team loser">
-              <div className="bracket-name"></div>
             </div>
           </div>
           <div className="bracket-matchup">
             <div id="15" className="winner-team winner">
-              <div className="bracket-name"></div>
             </div>
           </div>
         </div>
@@ -155,10 +153,8 @@ export default function TournamentBracket() {
         <div className="bracket-level">
           <div className="bracket-matchup">
             <div id="16" className="bracket-team loser">
-              <div className="bracket-name"></div>
             </div>
             <div id="17" className="bracket-team winner">
-              <div className="bracket-name"></div>
             </div>
           </div>
         </div>
@@ -168,10 +164,8 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="18" className="bracket-team winner">
-              <div className="bracket-name"></div>
             </div>
             <div id="19" className="bracket-team loser">
-              <div className="bracket-name"></div>
             </div>
           </div>
           <div className="bracket-matchup" />
@@ -179,10 +173,8 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="20" className="bracket-team loser">
-              <div className="bracket-name"></div>
             </div>
             <div id="21" className="bracket-team winner">
-              <div className="bracket-name"></div>
             </div>
           </div>
           <div className="bracket-matchup" />
