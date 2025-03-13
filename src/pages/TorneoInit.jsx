@@ -139,7 +139,7 @@ export default function TournamentBracket() {
         {/* Nivel 4 */}
         <div className="bracket-level">
           <div>
-            <img src="src\assets\pokemon_championships.png" alt="Torneo pokemon" width={150} />
+            <img src="src/assets/pokemon_championships.png" alt="Torneo pokemon" width={150} />
           </div>
           <div className="bracket-matchup">
             <div id="30" className="bracket-team">
@@ -224,9 +224,7 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
         </div>
       </div>
-      <div>
-        <button onClick={nextPosition}>Presiona</button>
-      </div>
+        <button className="battle" onClick={nextPosition}>Iniciar batalla</button>
     </>
   );
 }
