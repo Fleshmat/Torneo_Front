@@ -56,7 +56,7 @@ export const TournamentsList = () => {
   ];
 
   return (
-    <>
+    <div className="container" style={{ marginTop: "30px", width: "50%" }}>
       {tournaments.map((tournament) => (
         <div className="list-group" key={tournament.id}>
           <a
@@ -71,20 +71,23 @@ export const TournamentsList = () => {
             </div>
             <p className="mb-1">{tournament.description}</p>
             <small>And some small print.</small>
-          </a>
-          <button type="button" class="btn btn-info">
+            <div  style={{}}>
+          <button type="button" class="btn btn-info" style={{marginRight:"10px"}}>
             Info
           </button>
-          <button type="button" class="btn btn-success">
+          <button type="button" class="btn btn-success" style={{marginRight:"10px"}}>
             Success
           </button>
-          <button type="button" class="btn btn-danger">
+          <button type="button" class="btn btn-danger" >
             Danger
           </button>
 
+          </div>
+          </a>
+          
           <hr />
         </div>
       ))}
-    </>
+    </div>
   );
 };
