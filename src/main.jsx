@@ -4,7 +4,7 @@ import './style.css'
 import App from './App.jsx'
 import { BrowserRouter, Route } from 'react-router-dom'
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('tournament')).render(
   // <StrictMode>
   <BrowserRouter>
     <App />
