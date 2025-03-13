@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 export const TournamentsList = () => {
   const tournaments = [
@@ -55,6 +55,7 @@ export const TournamentsList = () => {
     },
   ];
 
+
   return (
     <div className="container" style={{ marginTop: "30px", width: "50%" }}>
       {tournaments.map((tournament) => (
@@ -64,7 +65,7 @@ export const TournamentsList = () => {
               href="#"
               className="list-group-item list-group-item-action active"
               aria-current="true"
-              style={{backgroundColor: "green", borderColor: "green"}}
+              style={{backgroundColor: "purple", borderColor: "purple"}}
             >
               <div className="d-flex w-100 justify-content-between">
                 <h5 className="mb-1">{tournament.name}</h5>
@@ -82,12 +83,12 @@ export const TournamentsList = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className={tournament.tournamentState.name==="Active" ? "btn btn-success": "btn btn-primary"}
                   style={{ marginRight: "10px" }}
                 >
                   Estado: {tournament.tournamentState.name}
                 </button>
-                <button type="button" className="btn btn-danger">
+                <button type="button" className="btn btn-warning">
                   Registrarme
                 </button>
               </div>
