@@ -1,6 +1,14 @@
 import React, { useState } from "react";
+import { Modal } from "../components/Modal";
 
 export const TournamentsList = () => {
+
+  const [isInfoModalOpen, setIsInfoModalOpen] =
+    useState(false);
+
+    const openInfoModal = () => setIsInfoModalOpen(true);
+    const closeInfoModal = () => setIsInfoModalOpen(false);
+
   const tournaments = [
     {
       id: 1,
@@ -58,12 +66,14 @@ export const TournamentsList = () => {
   const [alertMessage, setAlertMessage] = useState("");
 
   const handleClickRegister = (tournamentId) => {
-    console.log("Registering to tournament with id: ", tournamentId);
+    console.log("Registering to tournament with id", tournamentId);
     setAlertMessage("You have been registered to the tournament: ");
     setTimeout(() => {
       setAlertMessage("");
     }, 3000);
   };
+
+
 
   return (
     <div className="container" style={{ marginTop: "30px", width: "50%" }}>
@@ -97,6 +107,7 @@ export const TournamentsList = () => {
                   type="button"
                   className="btn btn-info"
                   style={{ marginRight: "10px" }}
+                  onClick={openInfoModal}
                 >
                   Info
                 </button>
@@ -124,11 +135,18 @@ export const TournamentsList = () => {
               
             </a>
           </div>
+          <Modal
+          title={tournament.name}
+          message={tournament.description}
+            isOpen={isInfoModalOpen}
+            onClose={closeInfoModal}
+          />
           <br />
           
         </div>
         
       ))}
+      
       
     </div>
   );
