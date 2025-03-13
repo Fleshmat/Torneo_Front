@@ -59,7 +59,7 @@ export default function TournamentBracket() {
   }
 
   return (
-    <>
+    <div id="tournament">
       <div className="header">
         <h1>Llaves de torneo Pokemon</h1>
       </div>
@@ -225,6 +225,6 @@ export default function TournamentBracket() {
         </div>
       </div>
         <button className="battle" onClick={nextPosition}>Iniciar batalla</button>
-    </>
+    </div>
   );
 }
