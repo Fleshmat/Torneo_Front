@@ -58,34 +58,42 @@ export const TournamentsList = () => {
   return (
     <div className="container" style={{ marginTop: "30px", width: "50%" }}>
       {tournaments.map((tournament) => (
-        <div className="list-group" key={tournament.id}>
-          <a
-            href="#"
-            className="list-group-item list-group-item-action active"
-            aria-current="true"
-            
-          >
-            <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1">{tournament.name}</h5>
-              <small></small>
-            </div>
-            <p className="mb-1">{tournament.description}</p>
-            <small>And some small print.</small>
-            <div  style={{}}>
-          <button type="button" class="btn btn-info" style={{marginRight:"10px"}}>
-            Info
-          </button>
-          <button type="button" class="btn btn-success" style={{marginRight:"10px"}}>
-            Success
-          </button>
-          <button type="button" class="btn btn-danger" >
-            Danger
-          </button>
-
+        <div key={tournament.id}>
+          <div className="list-group">
+            <a
+              href="#"
+              className="list-group-item list-group-item-action active"
+              aria-current="true"
+              style={{backgroundColor: "green", borderColor: "green"}}
+            >
+              <div className="d-flex w-100 justify-content-between">
+                <h5 className="mb-1">{tournament.name}</h5>
+                <small></small>
+              </div>
+              <p className="mb-1">{tournament.description}</p>
+              <small>And some small print.</small>
+              <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button
+                  type="button"
+                  className="btn btn-info"
+                  style={{ marginRight: "10px" }}
+                >
+                  Info
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  style={{ marginRight: "10px" }}
+                >
+                  Estado: {tournament.tournamentState.name}
+                </button>
+                <button type="button" className="btn btn-danger">
+                  Registrarme
+                </button>
+              </div>
+            </a>
           </div>
-          </a>
-          
-          <hr />
+          <br />
         </div>
       ))}
     </div>
