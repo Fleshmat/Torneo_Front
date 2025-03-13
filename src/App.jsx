@@ -1,4 +1,5 @@
 import './styles/style.css'
+import './styles/brackets.css'
 import { Route, Routes } from 'react-router-dom'
 import TournamentBracket from './pages/TorneoInit'
 import { TournamentsList } from './pages/TournamentsList'

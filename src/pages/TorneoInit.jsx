@@ -34,8 +34,6 @@ export default function TournamentBracket() {
       const nuevoDiv = document.createElement("div");
       nuevoDiv.className = "bracket-name";
 
-      console.log("Entra Destino "+destino)
-
       const na = Math.random() * 2;
       const g = na > 1 ? 0 : 1
       const elemOrigen = document.getElementById(origen[g])?.firstElementChild;
