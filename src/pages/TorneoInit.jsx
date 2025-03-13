@@ -3,269 +3,234 @@ import { useState } from "react";
 
 export default function TournamentBracket() {
 
+  const grupos = [
+    { origen: [1, 2], destino: 9 },
+    { origen: [3, 4], destino: 10 },
+    { origen: [5, 6], destino: 11 },
+    { origen: [7, 8], destino: 12 },
+    { origen: [22, 23], destino: 18 },
+    { origen: [24, 25], destino: 19 },
+    { origen: [26, 27], destino: 20 },
+    { origen: [28, 29], destino: 21 },
+    { origen: [9, 10], destino: 13 },
+    { origen: [11, 12], destino: 14 },
+    { origen: [18, 19], destino: 16 },
+    { origen: [20, 21], destino: 17 },
+    { origen: [13, 14], destino: 30 },
+    { origen: [16, 17], destino: 31 },
+    { origen: [30, 31], destino: 15 },
+
+  ];
+
+  const [indiceGrupo, setIndiceGrupo] = useState(0);
+
+  const nextPosition = (event) => {
+    if (indiceGrupo >= grupos.length) return; // Se salio
+
+    console.log("Entro para "+indiceGrupo+ " con total de "+grupos.length)
+
+    const { origen, destino } = grupos[indiceGrupo];
+    const elemDestino = document.getElementById(destino)?.firstElementChild;
+
+    if (elemDestino) {
+      elemDestino.textContent = ""; // Limpia
+      const na = Math.random()*2;
+      const g = na > 1 ? 0 : 1
+      // origen.forEach(id => {
+        const elemOrigen = document.getElementById(origen[g])?.firstElementChild;
+        if (elemOrigen) {
+          elemDestino.textContent += elemOrigen.textContent + " ";
+        }
+      // });
+    }
+
+    // Pasar al siguiente grupo en la siguiente pulsación
+    setIndiceGrupo(prev => prev + 1);
+  }
 
   return (
     <>
       <div className="header">
         <h1>Llaves de torneo Pokemon</h1>
       </div>
+      {/* <img src="src\assets\pokemon_championships.png" alt="Torneo pokemon" width={100}/> */}
       <div className="bracket-container">
+        {/* Nivel 1 */}
         <div className="bracket-level">
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
-            <div className="bracket-team winner">
-              <div className="bracket-name">Fordam</div>
-              <div className="bracket-score">44</div>
+            <div id="1" className="bracket-team winner">
+              <div id="hola" className="bracket-name">Fordam</div>
             </div>
-            <div className="bracket-team loser">
-              <div className="bracket-name">Sacred Heart</div>
-              <div className="bracket-score">22</div>
+            <div id="2" className="bracket-team loser">
+              <div className="bracket-name">Heart</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
-            <div className="bracket-team loser">
-              <div className="bracket-name">Eastern Kentucky</div>
-              <div className="bracket-score">16</div>
+            <div id="3" className="bracket-team loser">
+              <div className="bracket-name">Kentucky</div>
             </div>
             <div className="bracket-team winner">
-              <div className="bracket-name">Indiana State</div>
-              <div className="bracket-score">36</div>
+              <div id="4" className="bracket-name">Indiana</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
-            <div className="bracket-team winner">
+            <div id="5" className="bracket-team winner">
               <div className="bracket-name">UNI</div>
-              <div className="bracket-score">44</div>
             </div>
-            <div className="bracket-team loser">
-              <div className="bracket-name">Stephen F. Austin</div>
-              <div className="bracket-score">10</div>
+            <div id="6" className="bracket-team loser">
+              <div className="bracket-name">Austin</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
-            <div className="bracket-team winner">
+            <div id="7" className="bracket-team winner">
               <div className="bracket-name">Montana</div>
-              <div className="bracket-score">52</div>
             </div>
-            <div className="bracket-team loser">
-              <div className="bracket-name">San Diego</div>
-              <div className="bracket-score">14</div>
+            <div id="8" className="bracket-team loser">
+              <div className="bracket-name">Diego</div>
             </div>
           </div>
+          <div className="bracket-matchup" />
         </div>
+        {/* Nivel 2 */}
+        <div className="bracket-level">
+          <div className="bracket-matchup" />
+          <div className="bracket-matchup" />
+          <div className="bracket-matchup">
+            <div id="9" className="bracket-team winner">
+              <div className="bracket-name"></div>
+            </div>
+            <div id="10" className="bracket-team loser">
+              <div className="bracket-name"></div>
+            </div>
+          </div>
+          <div className="bracket-matchup" />
+          <div className="bracket-matchup" />
+          <div className="bracket-matchup" />
+          <div className="bracket-matchup">
+            <div id="11" className="bracket-team winner">
+              <div className="bracket-name"></div>
+            </div>
+            <div id="12" className="bracket-team loser">
+              <div className="bracket-name"></div>
+            </div>
+          </div>
+          <div className="bracket-matchup" />
+          <div className="bracket-matchup" />
+        </div>
+        {/* Nivel 3 */}
         <div className="bracket-level">
           <div className="bracket-matchup">
-            <div className="bracket-team winner">
-              <div className="bracket-name">New Hampshire</div>
-              <div className="bracket-score">44</div>
+            <div id="13" className="bracket-team">
+              <div className="bracket-name"></div>
             </div>
-            <div className="bracket-team loser">
-              <div className="bracket-name">Fordham</div>
-              <div className="bracket-score">19</div>
-            </div>
-          </div>
-          <div className="bracket-matchup">
-            <div className="bracket-team winner">
-              <div className="bracket-name">Chattanooga</div>
-              <div className="bracket-score">35</div>
-            </div>
-            <div className="bracket-team loser">
-              <div className="bracket-name">Indiana State</div>
-              <div className="bracket-score">14</div>
-            </div>
-          </div>
-          <div className="bracket-matchup">
-            <div className="bracket-team winner">
-              <div className="bracket-name">Illinois State</div>
-              <div className="bracket-score">41</div>
-            </div>
-            <div className="bracket-team loser">
-              <div className="bracket-name">UNI</div>
-              <div className="bracket-score">21</div>
-            </div>
-          </div>
-          <div className="bracket-matchup">
-            <div className="bracket-team winner">
-              <div className="bracket-name">Eastern Washington</div>
-              <div className="bracket-score">37</div>
-            </div>
-            <div className="bracket-team loser">
-              <div className="bracket-name">Montana</div>
-              <div className="bracket-score">20</div>
+            <div id="14" className="bracket-team">
+              <div className="bracket-name"></div>
             </div>
           </div>
         </div>
+        {/* Nivel 4 */}
+        <div className="bracket-level">
+          <div>
+            <img src="src\assets\pokemon_championships.png" alt="Torneo pokemon" width={150} />
+          </div>
+          <div className="bracket-matchup">
+            <div id="30" className="bracket-team winner">
+              <div className="bracket-name"></div>
+            </div>
+            <div id="31" className="bracket-team loser">
+              <div className="bracket-name"></div>
+            </div>
+          </div>
+          <div className="bracket-matchup">
+            <div id="15" className="winner-team winner">
+              <div className="bracket-name"></div>
+            </div>
+          </div>
+        </div>
+        {/* Nivel 5 */}
         <div className="bracket-level">
           <div className="bracket-matchup">
-            <div className="bracket-team winner">
-              <div className="bracket-name">New Hampshire</div>
-              <div className="bracket-score">35</div>
+            <div id="16" className="bracket-team loser">
+              <div className="bracket-name"></div>
             </div>
-            <div className="bracket-team loser">
-              <div className="bracket-name">Chattanooga</div>
-              <div className="bracket-score">30</div>
-            </div>
-          </div>
-          <div className="bracket-matchup">
-            <div className="bracket-team winner">
-              <div className="bracket-name">Illinois State</div>
-              <div className="bracket-score">59</div>
-            </div>
-            <div className="bracket-team loser">
-              <div className="bracket-name">Eastern Washington</div>
-              <div className="bracket-score">46</div>
+            <div id="17" className="bracket-team winner">
+              <div className="bracket-name"></div>
             </div>
           </div>
         </div>
+        {/* Nivel 6 */}
         <div className="bracket-level">
+          <div className="bracket-matchup" />
+          <div className="bracket-matchup" />
           <div className="bracket-matchup">
-            <div className="bracket-team">
-              <div className="bracket-name">New Hampshire</div>
-              <div className="bracket-score">--</div>
+            <div id="18" className="bracket-team winner">
+              <div className="bracket-name"></div>
             </div>
-            <div className="bracket-team">
-              <div className="bracket-name">Illinois State</div>
-              <div className="bracket-score">--</div>
+            <div id="19" className="bracket-team loser">
+              <div className="bracket-name"></div>
             </div>
           </div>
+          <div className="bracket-matchup" />
+          <div className="bracket-matchup" />
+          <div className="bracket-matchup" />
+          <div className="bracket-matchup">
+            <div id="20" className="bracket-team loser">
+              <div className="bracket-name"></div>
+            </div>
+            <div id="21" className="bracket-team winner">
+              <div className="bracket-name"></div>
+            </div>
+          </div>
+          <div className="bracket-matchup" />
+          <div className="bracket-matchup" />
         </div>
-        <div className="bracket-level">
-          <div className="bracket-matchup">
-            <div className="bracket-team">
-              <div className="bracket-name" />
-              <div className="bracket-score" />
-            </div>
-            <div className="bracket-team">
-              <div className="bracket-name">North Dakota State</div>
-              <div className="bracket-score">--</div>
-            </div>
-          </div>
-        </div>
-        <div className="bracket-level">
-          <div className="bracket-matchup">
-            <div className="bracket-team loser">
-              <div className="bracket-score">3</div>
-              <div className="bracket-name">Sam Houston State</div>
-            </div>
-            <div className="bracket-team winner">
-              <div className="bracket-score">35</div>
-              <div className="bracket-name">North Dakota State</div>
-            </div>
-          </div>
-        </div>
-        <div className="bracket-level">
-          <div className="bracket-matchup">
-            <div className="bracket-team winner">
-              <div className="bracket-score">34</div>
-              <div className="bracket-name">Sam Houston State</div>
-            </div>
-            <div className="bracket-team loser">
-              <div className="bracket-score">31</div>
-              <div className="bracket-name">Villanova</div>
-            </div>
-          </div>
-          <div className="bracket-matchup">
-            <div className="bracket-team loser">
-              <div className="bracket-score">32</div>
-              <div className="bracket-name">Coastal Carolina</div>
-            </div>
-            <div className="bracket-team winner">
-              <div className="bracket-score">39</div>
-              <div className="bracket-name">North Dakota State</div>
-            </div>
-          </div>
-        </div>
-        <div className="bracket-level">
-          <div className="bracket-matchup">
-            <div className="bracket-team loser">
-              <div className="bracket-score">26</div>
-              <div className="bracket-name">Jacksonville State</div>
-            </div>
-            <div className="bracket-team winner">
-              <div className="bracket-score">37</div>
-              <div className="bracket-name">Sam Houston State</div>
-            </div>
-          </div>
-          <div className="bracket-matchup">
-            <div className="bracket-team winner">
-              <div className="bracket-score">29</div>
-              <div className="bracket-name">Villanova</div>
-            </div>
-            <div className="bracket-team loser">
-              <div className="bracket-score">22</div>
-              <div className="bracket-name">Liberty</div>
-            </div>
-          </div>
-          <div className="bracket-matchup">
-            <div className="bracket-team winner">
-              <div className="bracket-score">36</div>
-              <div className="bracket-name">Coastal Carolina</div>
-            </div>
-            <div className="bracket-team loser">
-              <div className="bracket-score">15</div>
-              <div className="bracket-name">Richmond</div>
-            </div>
-          </div>
-          <div className="bracket-matchup">
-            <div className="bracket-team winner">
-              <div className="bracket-score">27</div>
-              <div className="bracket-name">North Dakota State</div>
-            </div>
-            <div className="bracket-team loser">
-              <div className="bracket-score">24</div>
-              <div className="bracket-name">South Dakota State</div>
-            </div>
-          </div>
-        </div>
+        {/* Nivel 7 */}
         <div className="bracket-level">
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
-            <div className="bracket-team winner">
-              <div className="bracket-score">21</div>
-              <div className="bracket-name">Sam Houston State</div>
+            <div id="22" className="bracket-team winner">
+              <div className="bracket-name">Sam</div>
             </div>
-            <div className="bracket-team loser">
-              <div className="bracket-score">17</div>
-              <div className="bracket-name">Southeastern Louisiana</div>
+            <div id="23" className="bracket-team loser">
+              <div className="bracket-name">Louisiana</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
-            <div className="bracket-team loser">
-              <div className="bracket-score">21</div>
-              <div className="bracket-name">James Madison</div>
+            <div id="24" className="bracket-team loser">
+              <div className="bracket-name">James</div>
             </div>
-            <div className="bracket-team winner">
-              <div className="bracket-score">26</div>
+            <div id="25" className="bracket-team winner">
               <div className="bracket-name">Liberty</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
-            <div className="bracket-team winner">
-              <div className="bracket-score">46</div>
+            <div id="26" className="bracket-team winner">
               <div className="bracket-name">Richmond</div>
             </div>
-            <div className="bracket-team loser">
-              <div className="bracket-score">24</div>
-              <div className="bracket-name">Morgan State</div>
+            <div id="27" className="bracket-team loser">
+              <div className="bracket-name">Morgan</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
-            <div className="bracket-team loser">
-              <div className="bracket-score">40</div>
-              <div className="bracket-name">Montana State</div>
+            <div id="28" className="bracket-team loser">
+              <div className="bracket-name">Montana</div>
             </div>
-            <div className="bracket-team winner">
-              <div className="bracket-score">47</div>
-              <div className="bracket-name">South Dakota State</div>
+            <div id="29" className="bracket-team winner">
+              <div className="bracket-name">South</div>
             </div>
           </div>
+          <div className="bracket-matchup" />
         </div>
+      </div>
+      <div>
+        <button onClick={nextPosition}>Presiona</button>
       </div>
     </>
   );

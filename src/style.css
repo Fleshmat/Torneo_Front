@@ -116,3 +116,19 @@ body {
 .bracket-team:hover > .bracket-score {
   display: none;
 }
+
+.winner-team {
+  background-color: #ffffff;
+  height: 100%;
+  transition: all ease 0.5s;
+  align-content: center;
+}
+
+.winner-team > .bracket-name {
+  overflow: none;
+  text-overflow: clip;
+  white-space: normal;
+  line-height: 1em;
+  align-self: center;
+  width: 100%;
+}
