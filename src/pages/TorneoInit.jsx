@@ -46,7 +46,12 @@ export default function TournamentBracket() {
       }
 
       nuevoDiv.textContent = contenido.trim();
+      nuevoDiv.classList.add("nm");
       elemDestino.appendChild(nuevoDiv);
+
+      setTimeout(() => {
+        nuevoDiv.classList.add("pop");
+      }, 100);
 
     }
 
