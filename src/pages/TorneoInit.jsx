@@ -25,7 +25,7 @@ export default function TournamentBracket() {
   const [indiceGrupo, setIndiceGrupo] = useState(0);
 
   const nextPosition = (event) => {
-    if (indiceGrupo >= grupos.length) return; // Se salio
+    if (indiceGrupo >= grupos.length) return;
 
     const { origen, destino } = grupos[indiceGrupo];
     const elemDestino = document.getElementById(destino);
@@ -34,7 +34,7 @@ export default function TournamentBracket() {
       const nuevoDiv = document.createElement("div");
       nuevoDiv.className = "bracket-name";
 
-      console.log("Entra elemenD "+destino)
+      console.log("Entra Destino "+destino)
 
       const na = Math.random() * 2;
       const g = na > 1 ? 0 : 1
@@ -44,14 +44,11 @@ export default function TournamentBracket() {
         contenido += elemOrigen.textContent + " ";
       }
 
-
-      // Asignar el contenido y agregarlo al destino
       nuevoDiv.textContent = contenido.trim();
       elemDestino.appendChild(nuevoDiv);
 
     }
 
-    // Pasar al siguiente grupo en la siguiente pulsación
     setIndiceGrupo(prev => prev + 1);
   }
 
@@ -78,8 +75,8 @@ export default function TournamentBracket() {
             <div id="3" className="bracket-team loser">
               <div className="bracket-name">Kentucky</div>
             </div>
-            <div className="bracket-team winner">
-              <div id="4" className="bracket-name">Indiana</div>
+            <div id="4" className="bracket-team winner">
+              <div className="bracket-name">Indiana</div>
             </div>
           </div>
           <div className="bracket-matchup" />
