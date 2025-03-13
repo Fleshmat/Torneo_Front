@@ -55,9 +55,28 @@ export const TournamentsList = () => {
     },
   ];
 
+  const [alertMessage, setAlertMessage] = useState("");
+
+  const handleClickRegister = (tournamentId) => {
+    console.log("Registering to tournament with id: ", tournamentId);
+    setAlertMessage("You have been registered to the tournament: ");
+    setTimeout(() => {
+      setAlertMessage("");
+    }, 3000);
+  };
 
   return (
     <div className="container" style={{ marginTop: "30px", width: "50%" }}>
+      <div>
+                {alertMessage && (
+                  <div
+                    className="alert alert-success"
+                    role="alert"
+                  >
+                    {alertMessage}
+                  </div>
+                )}
+              </div>
       {tournaments.map((tournament) => (
         <div key={tournament.id}>
           <div className="list-group">
@@ -65,7 +84,7 @@ export const TournamentsList = () => {
               href="#"
               className="list-group-item list-group-item-action active"
               aria-current="true"
-              style={{backgroundColor: "purple", borderColor: "purple"}}
+              style={{ backgroundColor: "purple", borderColor: "purple" }}
             >
               <div className="d-flex w-100 justify-content-between">
                 <h5 className="mb-1">{tournament.name}</h5>
@@ -83,20 +102,34 @@ export const TournamentsList = () => {
                 </button>
                 <button
                   type="button"
-                  className={tournament.tournamentState.name==="Active" ? "btn btn-success": "btn btn-primary"}
+                  className={
+                    tournament.tournamentState.name === "Active"
+                      ? "btn btn-success"
+                      : "btn btn-primary"
+                  }
                   style={{ marginRight: "10px" }}
                 >
                   Estado: {tournament.tournamentState.name}
                 </button>
-                <button type="button" className="btn btn-warning">
-                  Registrarme
-                </button>
+                {tournament.tournamentState.name === "Active" ? (
+                  <button
+                    type="button"
+                    className="btn btn-warning"
+                    onClick={() => handleClickRegister(tournament.id)}
+                  >
+                    Registrarme
+                  </button>
+                ) : null}
               </div>
+              
             </a>
           </div>
           <br />
+          
         </div>
+        
       ))}
+      
     </div>
   );
 };
