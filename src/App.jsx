@@ -1,6 +1,7 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
-import TournamentBracket from './pages/torneoInit'
+import TournamentBracket from './pages/TorneoInit'
+import { TournamentsList } from './pages/TournamentsList'
 
 function App() {
 
@@ -8,6 +9,7 @@ function App() {
     <Routes>
 
       <Route path='/' element={<TournamentBracket />} />
+      <Route path='/tournaments' element={<TournamentsList />} />
       
     </Routes>
   )
