@@ -106,7 +106,7 @@ export const TournamentsList = () => {
                 <button
                   type="button"
                   className="btn btn-info"
-                  style={{ marginRight: "10px" }}
+                  style={{ marginRight: "10px", backgroundColor: "#ee80b7", borderColor: "#ee80b7" }}
                   onClick={openInfoModal}
                 >
                   Info
@@ -115,8 +115,8 @@ export const TournamentsList = () => {
                   type="button"
                   className={
                     tournament.tournamentState.name === "Active"
-                      ? "btn btn-success"
-                      : "btn btn-primary"
+                      ? "btn btn-danger"
+                      : "btn btn-secondary"
                   }
                   style={{ marginRight: "10px" }}
                 >
@@ -127,6 +127,7 @@ export const TournamentsList = () => {
                     type="button"
                     className="btn btn-warning"
                     onClick={() => handleClickRegister(tournament.id)}
+                    style={{color: "white"}}
                   >
                     Registrarme
                   </button>
@@ -136,10 +137,9 @@ export const TournamentsList = () => {
             </a>
           </div>
           <Modal
-          title={tournament.name}
-          message={tournament.description}
             isOpen={isInfoModalOpen}
             onClose={closeInfoModal}
+            tournament={tournament}
           />
           <br />
           

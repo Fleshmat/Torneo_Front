@@ -9,7 +9,7 @@ function App() {
   return (
     <Routes>
       
-      <Route path='/' element={<TournamentBracket />} />
+      <Route path='/tournamentkeys' element={<TournamentBracket />} />
       <Route path='/tournaments' element={<TournamentsList />} />
       
     </Routes>
