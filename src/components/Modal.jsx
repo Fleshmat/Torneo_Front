@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import TournamentRegistrationService from "../assets/api/TournamentRegistrationService";
 
 export const Modal = ({
   isOpen,
@@ -9,7 +10,7 @@ export const Modal = ({
 
 
   const navigate = useNavigate();
-
+ const participants = TournamentRegistrationService.getRegistrationsByTournamentId(tournament.id);
 
   return (
     <div
@@ -30,6 +31,12 @@ export const Modal = ({
           <div className="modal-body">
             <p>{tournament?.description}</p>
           </div>
+          {/* <div className="participants">
+            <h5>Participantes {participants.then.length}/16</h5>
+            {participants.map((participant) => (
+              <div key={participant.id}>{participant.name}</div>
+            ))}
+          </div> */}
           <div className="modal-footer">
           <button
               type="button"
