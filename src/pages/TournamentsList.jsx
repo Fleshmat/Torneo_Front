@@ -63,8 +63,8 @@ export const TournamentsList = () => {
                 <h5 className="mb-1">{tournament.name}</h5>
                 <small></small>
               </div>
-              <p className="mb-1">{tournament.description}</p>
-              <small>And some small print.</small>
+              <p className="mb-1">Cantidad de participantes: {tournament.minParticipantQuantity}</p>
+              <small>{tournament.description}</small>
               <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button
                   type="button"
@@ -77,9 +77,11 @@ export const TournamentsList = () => {
                 <button
                   type="button"
                   className={
-                    tournament.tournamentState === "En Registro"
+                      tournament.tournamentState === "En Registro"
                       ? "btn btn-success"
-                      : "btn btn-warning"
+                      : tournament.tournamentState === "En Progreso"
+                      ? "btn btn-warning"
+                      : "btn btn-danger"
                   }
                   style={{ marginRight: "10px" }}
                 >
