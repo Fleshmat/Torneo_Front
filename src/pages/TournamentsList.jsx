@@ -1,55 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Modal } from "../components/Modal";
+import { tournamentService } from "../assets/api/TournamentService";
+import { useTorneoContext } from "../contexts/TorneoContext";
 
 export const TournamentsList = () => {
 
+  const [tournamentsList, setTournamentsList] = useState([]);
+  const {setTournamentSelected} = useTorneoContext();
   const [isInfoModalOpen, setIsInfoModalOpen] =
     useState(false);
 
-    const openInfoModal = () => setIsInfoModalOpen(true);
-    const closeInfoModal = () => setIsInfoModalOpen(false);
+  const openInfoModal = (tournamentSelected1) => {
+    setTournamentSelected(tournamentSelected1);
+    // console.log("Tournament selected", tournamentSelected1);
+    setIsInfoModalOpen(true);
+  }
+  const closeInfoModal = () => setIsInfoModalOpen(false);
 
-  const tournaments = [
-    {
-      id: 1,
-      tournamentState: {
-        id: 1,
-        name: "Active",
-      },    
-      name: "Spring Championship",
-      description: "Annual spring Pokémon tournament",
-      maxParticipantQuantity: 16,
-      minParticipantQuantity: 16,
-      startDate: "2025-04-01",
-      endDate: "2025-04-15",
-    },
-    {
-      id: 2,
-      tournamentState: {
-        id: 2,
-        name: "Completed",
-      },   
-      name: "Winter Cup",
-      description: "Winter Pokémon battle tournament",
-      maxParticipantQuantity: 16,
-      minParticipantQuantity: 16,
-      startDate: "2024-12-01",
-      endDate: "2024-12-20",
-    },
-    {
-      id: 3,
-      tournamentState: {
-        id: 1,
-        name: "Active",
-      },
-      name: "Summer Clash",
-      description: "A competitive Pokémon tournament in summer",
-      maxParticipantQuantity: 16,
-      minParticipantQuantity: 12,
-      startDate: "2025-07-10",
-      endDate: "2025-07-25",
-    },
-  ];
+  useEffect(() => {
+    loadTournaments();
+  }, []);
+
+  const loadTournaments = async () => {
+    const tournaments = await tournamentService.getTournaments();
+    setTournamentsList(tournaments);
+  }
 
   const [alertMessage, setAlertMessage] = useState("");
 
@@ -66,16 +41,16 @@ export const TournamentsList = () => {
   return (
     <div className="container" style={{ marginTop: "30px", width: "50%" }}>
       <div>
-                {alertMessage && (
-                  <div
-                    className="alert alert-success"
-                    role="alert"
-                  >
-                    {alertMessage}
-                  </div>
-                )}
-              </div>
-      {tournaments.map((tournament) => (
+        {alertMessage && (
+          <div
+            className="alert alert-success"
+            role="alert"
+          >
+            {alertMessage}
+          </div>
+        )}
+      </div>
+      {tournamentsList.map((tournament) => (
         <div key={tournament.id}>
           <div className="list-group">
             <a
@@ -95,47 +70,47 @@ export const TournamentsList = () => {
                   type="button"
                   className="btn btn-info"
                   style={{ marginRight: "10px", backgroundColor: "#ee80b7", borderColor: "#ee80b7" }}
-                  onClick={openInfoModal}
+                  onClick={() => openInfoModal(tournament)}
                 >
                   Info
                 </button>
                 <button
                   type="button"
                   className={
-                    tournament.tournamentState.name === "Active"
-                      ? "btn btn-danger"
-                      : "btn btn-secondary"
+                    tournament.tournamentState === "En Registro"
+                      ? "btn btn-success"
+                      : "btn btn-warning"
                   }
                   style={{ marginRight: "10px" }}
                 >
-                  Estado: {tournament.tournamentState.name}
+                  Estado: {tournament.tournamentState}
                 </button>
-                {tournament.tournamentState.name === "Active" ? (
+                {tournament.tournamentState === "En Registro" ? (
                   <button
                     type="button"
-                    className="btn btn-warning"
+                    className="btn btn-primary"
                     onClick={() => handleClickRegister(tournament.id)}
-                    style={{color: "white"}}
+                    style={{ color: "white" }}
                   >
                     Registrarme
                   </button>
                 ) : null}
               </div>
-              
+
             </a>
+
           </div>
           <Modal
             isOpen={isInfoModalOpen}
             onClose={closeInfoModal}
-            tournament={tournament}
           />
+                
           <br />
-          
         </div>
-        
+
       ))}
-      
-      
+
+
     </div>
   );
 };

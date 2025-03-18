@@ -1,17 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import TournamentRegistrationService from "../assets/api/TournamentRegistrationService";
+import { useTorneoContext } from "../contexts/TorneoContext";
 
 export const Modal = ({
   isOpen,
-  onClose,
-  tournament
+  onClose
 }) => {
 
 
   const navigate = useNavigate();
- const participants = TournamentRegistrationService.getRegistrationsByTournamentId(tournament.id);
-
+//  const participants = TournamentRegistrationService.getRegistrationsByTournamentId(tournament.id);
+const {tournamentSelected} = useTorneoContext();
   return (
     <div
       className={`modal fade ${isOpen ? "show d-block" : ""}`}
@@ -21,7 +21,7 @@ export const Modal = ({
       <div className="modal-dialog">
         <div className="modal-content" style={{ backgroundColor: "#f8d7da"}}>
           <div className="modal-header">
-            <h5 className="modal-title">{tournament?.name}</h5>
+            <h5 className="modal-title">{tournamentSelected?.name}</h5>
             <button
               type="button"
               className="btn-close"
@@ -29,7 +29,7 @@ export const Modal = ({
             ></button>
           </div>
           <div className="modal-body">
-            <p>{tournament?.description}</p>
+            <p>{tournamentSelected?.description}</p>
           </div>
           {/* <div className="participants">
             <h5>Participantes {participants.then.length}/16</h5>

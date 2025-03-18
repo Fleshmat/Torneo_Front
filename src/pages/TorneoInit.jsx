@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import TournamentRegistrationService from "../assets/api/TournamentRegistrationService";
+import { useTorneoContext } from "../contexts/TorneoContext";
 
 
 export default function TournamentBracket() {
+
+  const [trainers, setTrainers] = useState([]);
+  const {tournamentSelected} = useTorneoContext();
 
   const grupos = [
     { origen: [1, 2], destino: 9 },
@@ -24,6 +29,15 @@ export default function TournamentBracket() {
 
   const [indiceGrupo, setIndiceGrupo] = useState(0);
 
+  useEffect(() => {
+    loadTrainers();
+  }, []);
+
+
+  const loadTrainers = async () => {
+    const entrenadores = await TournamentRegistrationService.getParticipantsByTournamentId(tournamentSelected.id);
+    setTrainers(entrenadores);
+  }
   const nextPosition = (event) => {
     if (indiceGrupo >= grupos.length) return;
 
@@ -68,37 +82,37 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="1" className="bracket-team">
-              <div id="hola" className="bracket-name">Fordam</div>
+              <div className="bracket-name">{trainers[0]?.name}</div>
             </div>
             <div id="2" className="bracket-team">
-              <div className="bracket-name">Heart</div>
+              <div className="bracket-name">{trainers[1]?.name}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="3" className="bracket-team">
-              <div className="bracket-name">Kentucky</div>
+              <div className="bracket-name">{trainers[2]?.name}</div>
             </div>
             <div id="4" className="bracket-team">
-              <div className="bracket-name">Indiana</div>
+              <div className="bracket-name">{trainers[3]?.name}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="5" className="bracket-team">
-              <div className="bracket-name">UNI</div>
+              <div className="bracket-name">{trainers[4]?.name}</div>
             </div>
             <div id="6" className="bracket-team">
-              <div className="bracket-name">Austin</div>
+              <div className="bracket-name">{trainers[5]?.name}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="7" className="bracket-team">
-              <div className="bracket-name">Montana</div>
+              <div className="bracket-name">{trainers[6]?.name}</div>
             </div>
             <div id="8" className="bracket-team">
-              <div className="bracket-name">Diego</div>
+              <div className="bracket-name">{trainers[7]?.name}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
@@ -186,43 +200,43 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="22" className="bracket-team">
-              <div className="bracket-name">Sam</div>
+              <div className="bracket-name">{trainers[8]?.name}</div>
             </div>
             <div id="23" className="bracket-team">
-              <div className="bracket-name">Louisiana</div>
+              <div className="bracket-name">{trainers[9]?.name}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="24" className="bracket-team">
-              <div className="bracket-name">James</div>
+              <div className="bracket-name">{trainers[10]?.name}</div>
             </div>
             <div id="25" className="bracket-team">
-              <div className="bracket-name">Liberty</div>
+              <div className="bracket-name">{trainers[11]?.name}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="26" className="bracket-team">
-              <div className="bracket-name">Richmond</div>
+              <div className="bracket-name">{trainers[12]?.name}</div>
             </div>
             <div id="27" className="bracket-team">
-              <div className="bracket-name">Morgan</div>
+              <div className="bracket-name">{trainers[13]?.name}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="28" className="bracket-team">
-              <div className="bracket-name">Montana</div>
+              <div className="bracket-name">{trainers[14]?.name}</div>
             </div>
             <div id="29" className="bracket-team">
-              <div className="bracket-name">South</div>
+              <div className="bracket-name">{trainers[15]?.name}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
         </div>
       </div>
-        <button className="battle" onClick={nextPosition}>Iniciar batalla</button>
+      <button className="battle" onClick={nextPosition}>Iniciar batalla</button>
     </div>
   );
 }
