@@ -12,6 +12,8 @@ function App() {
     <Routes>
       <Route path='/tournamentkeys' element={<TournamentBracket />} />
       <Route path='/tournaments' element={<TournamentsList />} />
+      <Route path='/' element={<TournamentsList />} />
+      
     </Routes>
   </TorneoProvider>
   )
