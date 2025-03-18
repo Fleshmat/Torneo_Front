@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8080/api/tournament/register";
 const API_URL2 = "http://localhost:8080/api/tournament/register/participants";
+const API_URL3 = "http://localhost:8080/api/tournament/matches"
 
 
 const TournamentRegistrationService = {
@@ -27,6 +28,15 @@ const TournamentRegistrationService = {
   getParticipantsByTournamentId: async (tournamentId) => {
     try {
       const response = await axios.get(`${API_URL2}/${tournamentId}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching registrations:", error);
+      throw error;
+    }
+  },
+  getBracketsByTournamentId: async (tournamentId) => {
+    try {
+      const response = await axios.get(`${API_URL3}/${tournamentId}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching registrations:", error);
