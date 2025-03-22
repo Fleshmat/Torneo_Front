@@ -34,6 +34,9 @@ export default function TournamentBracket() {
   useEffect(() => {
     loadTrainers();
     loadBrackets();
+  }, [tournamentSelected]);
+
+  useEffect(() => {
     loadPhase();
   }, [phase]);
 

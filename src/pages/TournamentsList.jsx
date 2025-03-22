@@ -12,7 +12,7 @@ export const TournamentsList = () => {
 
   const openInfoModal = (tournamentSelected1) => {
     setTournamentSelected(tournamentSelected1);
-    // console.log("Tournament selected", tournamentSelected1);
+    localStorage.setItem("tournamentSelected", JSON.stringify(tournamentSelected1));
     setIsInfoModalOpen(true);
   }
   const closeInfoModal = () => setIsInfoModalOpen(false);
