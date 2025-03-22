@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import TournamentRegistrationService from "../assets/api/TournamentRegistrationService";
 import { useTorneoContext } from "../contexts/TorneoContext";
 
@@ -7,6 +7,7 @@ export default function TournamentBracket() {
 
   const [trainers, setTrainers] = useState([]);
   const [brackets, setBrackets] = useState([]);
+  const [phase, setPhase] = useState();
   const {tournamentSelected} = useTorneoContext();
 
   const grupos = [
@@ -33,7 +34,8 @@ export default function TournamentBracket() {
   useEffect(() => {
     loadTrainers();
     loadBrackets();
-  }, []);
+    loadPhase();
+  }, [phase]);
 
 
   const loadTrainers = async () => {
@@ -45,6 +47,12 @@ export default function TournamentBracket() {
     const brackets = await TournamentRegistrationService.getBracketsByTournamentId(tournamentSelected.id);
     setBrackets(brackets);
   }
+
+  const loadPhase = async () => {
+    const phase = await TournamentRegistrationService.getPhaseByTournamentId(tournamentSelected.id);
+    setPhase(phase);
+  }
+
   const nextPosition = (event) => {
     if (indiceGrupo >= grupos.length) return;
 
@@ -137,8 +145,10 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="9" className="bracket-team">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ? getTrainerName(8,'firstParticipant') : null}</div>
             </div>
             <div id="10" className="bracket-team">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ? getTrainerName(8,'secondParticipant') : null}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
@@ -146,8 +156,10 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="11" className="bracket-team">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ? getTrainerName(9,'firstParticipant') : null}</div>
             </div>
             <div id="12" className="bracket-team">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ? getTrainerName(9,'secondParticipant') : null}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
@@ -157,8 +169,10 @@ export default function TournamentBracket() {
         <div className="bracket-level">
           <div className="bracket-matchup">
             <div id="13" className="bracket-team">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 2 ? getTrainerName(12,'firstParticipant') : null}</div>
             </div>
             <div id="14" className="bracket-team">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 2 ? getTrainerName(12,'secondParticipant') : null}</div>
             </div>
           </div>
         </div>
@@ -169,12 +183,15 @@ export default function TournamentBracket() {
           </div>
           <div className="bracket-matchup">
             <div id="30" className="bracket-team">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 3 ? getTrainerName(14,'firstParticipant') : null}</div>
             </div>
             <div id="31" className="bracket-team">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 3 ? getTrainerName(14,'secondParticipant') : null}</div>
             </div>
           </div>
           <div className="bracket-matchup">
             <div id="15" className="winner-team winner">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament}</div>
             </div>
           </div>
         </div>
@@ -182,8 +199,10 @@ export default function TournamentBracket() {
         <div className="bracket-level">
           <div className="bracket-matchup">
             <div id="16" className="bracket-team">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 2 ? getTrainerName(13,'firstParticipant') : null}</div>
             </div>
             <div id="17" className="bracket-team">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 2 ?getTrainerName(13,'secondParticipant') : null}</div>
             </div>
           </div>
         </div>
@@ -193,8 +212,10 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="18" className="bracket-team">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ?getTrainerName(10,'firstParticipant') : null}</div>
             </div>
             <div id="19" className="bracket-team">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ?getTrainerName(10,'secondParticipant') : null}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
@@ -202,8 +223,10 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="20" className="bracket-team">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ?getTrainerName(11,'firstParticipant') : null}</div>
             </div>
             <div id="21" className="bracket-team">
+              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ?getTrainerName(11,'secondParticipant') : null}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
