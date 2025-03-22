@@ -34,11 +34,8 @@ export default function TournamentBracket() {
   useEffect(() => {
     loadTrainers();
     loadBrackets();
-  }, [tournamentSelected]);
-
-  useEffect(() => {
     loadPhase();
-  }, [phase]);
+  }, [tournamentSelected, phase]);
 
 
   const loadTrainers = async () => {
