@@ -92,6 +92,30 @@ export default function TournamentBracket() {
       return trainer ? trainer.name : '';
   }
 
+  const getTrainerNameEvolvep = (phaseIndex, bracketIndex, participantType) => {
+    if (!phase) return '';
+    if (phase.consecutiveNumberWithinTournament > phaseIndex) {
+        return getTrainerName(bracketIndex, participantType);
+    }
+
+    const baseOffset = 8;
+    const offsetDifference = bracketIndex - baseOffset;  
+    const firstParticipantOffset = baseOffset - offsetDifference;
+    const secondParticipantOffset = firstParticipantOffset - 1;
+
+    const offsetMap = [1, 2, 3].reduce((map, phaseIndex) => {
+        map[phaseIndex] = { firstParticipant: firstParticipantOffset, secondParticipant: secondParticipantOffset };
+        return map;
+    }, {});
+
+    if (offsetMap[phaseIndex]) {
+        const offset = offsetMap[phaseIndex][participantType];
+        return getTrainerName(bracketIndex - offset, 'winner');
+    }
+
+    return '';
+  }
+
   return (
     <div id="tournament">
       <div className="header">
@@ -104,37 +128,37 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="1" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(0,'firstParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 0,'firstParticipant')}</div>
             </div>
             <div id="2" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(0,'secondParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 0,'secondParticipant')}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="3" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(1,'firstParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 1,'firstParticipant')}</div>
             </div>
             <div id="4" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(1,'secondParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 1,'secondParticipant')}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="5" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(2,'firstParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 2,'firstParticipant')}</div>
             </div>
             <div id="6" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(2,'secondParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 2,'secondParticipant')}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="7" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(3,'firstParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 3,'firstParticipant')}</div>
             </div>
             <div id="8" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(3,'secondParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 3,'secondParticipant')}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
@@ -145,10 +169,10 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="9" className="bracket-team">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ? getTrainerName(8,'firstParticipant') : null}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(1, 8,'firstParticipant')}</div>
             </div>
             <div id="10" className="bracket-team">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ? getTrainerName(8,'secondParticipant') : null}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(1, 8,'secondParticipant')}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
@@ -156,10 +180,10 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="11" className="bracket-team">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ? getTrainerName(9,'firstParticipant') : null}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(1, 9,'firstParticipant')}</div>
             </div>
             <div id="12" className="bracket-team">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ? getTrainerName(9,'secondParticipant') : null}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(1, 9,'secondParticipant')}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
@@ -169,10 +193,10 @@ export default function TournamentBracket() {
         <div className="bracket-level">
           <div className="bracket-matchup">
             <div id="13" className="bracket-team">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 2 ? getTrainerName(12,'firstParticipant') : null}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(2, 12,'firstParticipant')}</div>
             </div>
             <div id="14" className="bracket-team">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 2 ? getTrainerName(12,'secondParticipant') : null}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(2, 12,'secondParticipant')}</div>
             </div>
           </div>
         </div>
@@ -183,15 +207,15 @@ export default function TournamentBracket() {
           </div>
           <div className="bracket-matchup">
             <div id="30" className="bracket-team">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 3 ? getTrainerName(14,'firstParticipant') : null}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(3, 14,'firstParticipant')}</div>
             </div>
             <div id="31" className="bracket-team">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 3 ? getTrainerName(14,'secondParticipant') : null}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(3, 14,'secondParticipant')}</div>
             </div>
           </div>
           <div className="bracket-matchup">
             <div id="15" className="winner-team winner">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(3, 14,'winner')}</div>
             </div>
           </div>
         </div>
@@ -199,10 +223,10 @@ export default function TournamentBracket() {
         <div className="bracket-level">
           <div className="bracket-matchup">
             <div id="16" className="bracket-team">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 2 ? getTrainerName(13,'firstParticipant') : null}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(2, 13,'firstParticipant')}</div>
             </div>
             <div id="17" className="bracket-team">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 2 ?getTrainerName(13,'secondParticipant') : null}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(2, 13,'secondParticipant')}</div>
             </div>
           </div>
         </div>
@@ -212,10 +236,10 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="18" className="bracket-team">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ?getTrainerName(10,'firstParticipant') : null}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(1, 10,'firstParticipant')}</div>
             </div>
             <div id="19" className="bracket-team">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ?getTrainerName(10,'secondParticipant') : null}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(1, 10,'secondParticipant')}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
@@ -223,10 +247,10 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="20" className="bracket-team">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ?getTrainerName(11,'firstParticipant') : null}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(1, 11,'firstParticipant')}</div>
             </div>
             <div id="21" className="bracket-team">
-              <div className="bracket-name">{phase?.consecutiveNumberWithinTournament > 1 ?getTrainerName(11,'secondParticipant') : null}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(1, 11,'secondParticipant')}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
@@ -237,37 +261,37 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="22" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(4,'firstParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 4,'firstParticipant')}</div>
             </div>
             <div id="23" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(4,'secondParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 4,'secondParticipant')}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="24" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(5,'firstParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 5,'firstParticipant')}</div>
             </div>
             <div id="25" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(5,'secondParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 5,'secondParticipant')}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="26" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(6,'firstParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 6,'firstParticipant')}</div>
             </div>
             <div id="27" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(6,'secondParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 6,'secondParticipant')}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
           <div className="bracket-matchup">
             <div id="28" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(7,'firstParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 7,'firstParticipant')}</div>
             </div>
             <div id="29" className="bracket-team">
-              <div className="bracket-name">{getTrainerName(7,'secondParticipant')}</div>
+              <div className="bracket-name">{getTrainerNameEvolvep(0, 7,'secondParticipant')}</div>
             </div>
           </div>
           <div className="bracket-matchup" />
