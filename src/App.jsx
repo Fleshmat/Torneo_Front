@@ -4,17 +4,20 @@ import { Route, Routes } from 'react-router-dom'
 import TournamentBracket from './pages/TorneoInit'
 import { TournamentsList } from './pages/TournamentsList'
 import { TorneoProvider } from './contexts/TorneoContext'
+import { TrainerProvider } from './contexts/TrainerProvider'
 
 function App() {
 
   return (
   <TorneoProvider>
+    <TrainerProvider>
     <Routes>
       <Route path='/tournamentkeys' element={<TournamentBracket />} />
       <Route path='/tournaments' element={<TournamentsList />} />
       <Route path='/' element={<TournamentsList />} />
       
     </Routes>
+    </TrainerProvider>
   </TorneoProvider>
   )
 }

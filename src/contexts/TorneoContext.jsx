@@ -8,7 +8,7 @@ export const useTorneoContext = () => {
     throw new Error("useTorneoContext debe estar dentro del proveedor TorneoProvider");
   }else{
     return context;
-  }
+  } 
 };
 // Componente proveedor que envuelve a los componentes hijos
 export const TorneoProvider = ({ children }) => {

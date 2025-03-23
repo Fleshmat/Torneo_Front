@@ -2,11 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { Modal } from "../components/Modal";
 import { tournamentService } from "../assets/api/TournamentService";
 import { useTorneoContext } from "../contexts/TorneoContext";
+import { TrainersRegisterModal } from "../components/TrainersRegisterModal";
+import { TrainerContext } from "../contexts/TrainerProvider";
+import axios from "axios";
 
 export const TournamentsList = () => {
 
   const [tournamentsList, setTournamentsList] = useState([]);
-  const {setTournamentSelected} = useTorneoContext();
+  const { setTournamentSelected } = useTorneoContext();
   const [isInfoModalOpen, setIsInfoModalOpen] =
     useState(false);
 
@@ -16,6 +19,11 @@ export const TournamentsList = () => {
     setIsInfoModalOpen(true);
   }
   const closeInfoModal = () => setIsInfoModalOpen(false);
+
+  const [trainerRegisterModalIsOpen, setTrainerRegisterModalIsOpen] = useState(false);
+
+  const { trainer } = useContext(TrainerContext);
+
 
   useEffect(() => {
     loadTournaments();
@@ -28,12 +36,21 @@ export const TournamentsList = () => {
 
   const [alertMessage, setAlertMessage] = useState("");
 
-  const handleClickRegister = (tournamentId) => {
-    console.log("Registering to tournament with id", tournamentId);
-    setAlertMessage("You have been registered to the tournament: ");
-    setTimeout(() => {
-      setAlertMessage("");
-    }, 3000);
+  const handleClickRegister = async (tournamentId) => {
+    try {
+      const response = await axios.post(`http://localhost:8080/api/tournament/register/${tournamentId}`, trainer?.id)
+      if (response.status === 200) {
+        setTrainerRegisterModalIsOpen(false);
+        console.log("Registering to tournament with id", tournamentId);
+        setAlertMessage("You have been registered to the tournament");
+        setTimeout(() => {
+          setAlertMessage("");
+        }, 3000);
+      }
+    } catch (error) {
+      setAlertMessage("Error al procesar la solicitud");
+      console.error("Error registering to tournament", error);
+    }
   };
 
 
@@ -77,11 +94,11 @@ export const TournamentsList = () => {
                 <button
                   type="button"
                   className={
-                      tournament.tournamentState === "En Registro"
+                    tournament.tournamentState === "En Registro"
                       ? "btn btn-success"
                       : tournament.tournamentState === "En Progreso"
-                      ? "btn btn-warning"
-                      : "btn btn-danger"
+                        ? "btn btn-warning"
+                        : "btn btn-danger"
                   }
                   style={{ marginRight: "10px" }}
                 >
@@ -91,7 +108,7 @@ export const TournamentsList = () => {
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={() => handleClickRegister(tournament.id)}
+                    onClick={() => setTrainerRegisterModalIsOpen(true)}
                     style={{ color: "white" }}
                   >
                     Registrarme
@@ -106,8 +123,10 @@ export const TournamentsList = () => {
             isOpen={isInfoModalOpen}
             onClose={closeInfoModal}
           />
-                
+
           <br />
+          <TrainersRegisterModal isOpen={trainerRegisterModalIsOpen} onClose={() => setTrainerRegisterModalIsOpen(false)}
+            onConfirm={() => handleClickRegister(tournament.id)}></TrainersRegisterModal>
         </div>
 
       ))}
