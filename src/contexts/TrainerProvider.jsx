@@ -28,12 +28,14 @@ export const TrainerProvider = ({ children }) => {
     const fetchingTeam = async(trainerId)=>{
         try {
             const { data } = await apiTeams.get(`/trainer/${trainerId}`);
-            if (!data || typeof data?.id === "undefined") {
+            if (!data || typeof data.id === "undefined") {
                 console.error("No valid team data found");
                 return;
             }
-            // createTeam(data);
-            setTrainer((prev) => ({ ...prev, team: data?.equipoSeleccionado }));
+            
+            console.log("Team: ", data.equipoSeleccionado);
+            await createTeam(data.equipoSeleccionado);
+            setTrainer((prev) => ({ ...prev, team: data.equipoSeleccionado }));
             console.log("Team fetched successfully", data);
         } catch (error) {
             console.error("Error fetching team:", error);

@@ -19,22 +19,23 @@ export const TrainersRegisterModal = ({
         setMessage("");
         try {
             const trainerData = await searchTrainer(email);
+            setTrainer((prev) => ({ ...prev, id: trainerData.id, name: trainerData.name }));
 
-            if (trainerData) {
+            if (trainer) {
 
                 setMessage("Mr. Trainer, we found you! :D");
                 setEmail('');
-                setTrainer((prev) => ({ ...prev, id: trainerData.id, name: trainerData.name }));
 
                 await fetchingTeam(trainerData.id);
 
-                const teamData = await createTeam(trainer.team);
-                if (!teamData) {
-                    throw new Error("Failed to create team");
-                }
+                // const teamData = await createTeam(trainer.team);
 
-                console.log(teamData);
-                
+
+                // console.log(teamData);
+                // debugger;
+                // if (!teamData) {
+                //     throw new Error("Failed to create team");
+                // }
                 await createTrainer();
             } else {
                 setMessage("Mr. Trainer, we couldn't save you correctly:(");
