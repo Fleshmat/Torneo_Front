@@ -17,13 +17,11 @@ const TeamService = {
     createTeam: async (team) => {
 
         console.log("team", team);  
-        console.log(typeof team.id);
-
         try {
             const newTeam = {
                 id: team,
             }
-            const response = await axios.post(API_URL, newTeam.id, {
+            const response = await axios.post(API_URL, newTeam, {
                 headers: {
                     "Content-Type": "application/json",
                 },

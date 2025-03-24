@@ -43,12 +43,9 @@ export const TrainerProvider = ({ children }) => {
 
 
     const createTeam = async(teamId)=>{
-        if (!teamId) {
-            console.error("Invalid team ID provided for creation.");
-            return null;
-        }
+        console.log(teamId);
         try {
-            const { data } = await TeamService.createTeam({ id: teamId });
+            const { data } = await TeamService.createTeam(teamId);
             return data;
         } catch (error) {
             console.error("Error creating team:", error);
@@ -60,12 +57,9 @@ export const TrainerProvider = ({ children }) => {
     const createTrainer = async () => {
         try {
             console.log("Creating trainer...");
-            // const teamData = await createTeam(trainer.team);
-            // if (!teamData) {
-            //     throw new Error("Failed to create team");
-            // }
+            
             const { status } = await TrainerService.createTrainer(trainer);
-            if (status === 200) {
+            if (status === 201) {
                 console.log("Trainer created successfully");
             }
         } catch (error) {

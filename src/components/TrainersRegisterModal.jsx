@@ -33,7 +33,7 @@ export const TrainersRegisterModal = ({
                     throw new Error("Failed to create team");
                 }
             } else {
-                setMessage("Mr. Trainer, we couldn't create your team correctly:(");
+                setMessage("Mr. Trainer, we couldn't save you correctly:(");
             }
 
             setMessage("Mr. Trainer, we couldn't find you. Please check your email and try again.");
