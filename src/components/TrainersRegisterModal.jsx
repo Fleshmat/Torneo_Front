@@ -1,31 +1,30 @@
 import React, { useContext, useState } from 'react'
 import { TrainerContext } from '../contexts/TrainerProvider';
-import api from '../mocks/apiTrainerMock';
+import apiTrainer from '../mocks/apiTrainerMock';
 
 export const TrainersRegisterModal = ({
     isOpen, onClose, onConfirm
 }) => {
 
-    const { setTrainer } = useContext(TrainerContext);
+    const { searchTrainer, fetchingTeam } = useContext(TrainerContext);
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
 
 
     const handleInputChange = (e) => {
-        const { value } = e.target;
-        setEmail(value);
+        setEmail(e.target.value);
     };
 
     const handleSetTrainer = async () => {
+        setMessage("");
         try {
-            const response = await api.get(`/trainer/${email}`);
-            if (response.status === 200) {
-                setTrainer(response.data);
-                setMessage("Mr. Trainer, we found you correctly and you have been registered:3");
-                console.log("Mr. Trainer, we found you correctly:3");
-                setEmail("");
+            const trainerData = await searchTrainer(email);
+            if (trainerData) {
+                await fetchingTeam(trainerData.id);
+                setMessage("Mr. Trainer, we found you! :D");
+                setEmail('');
             } else {
-                setMessage("Mr. Trainer, we couldn't find you correctly:3");
+                setMessage("Mr. Trainer, we couldn't find you correctly:(");
             }
 
         } catch (error) {
@@ -55,12 +54,12 @@ export const TrainersRegisterModal = ({
                                 required
                                 onChange={handleInputChange}
                                 value={email}
-                                placeholder='Mr. Trainer, please enter your email. :3'
+                                placeholder='Mr. Trainerlease enter your email. :3'
                             />
                         </div>
                         {message && (
                             <div
-                                className={ message.includes("couldn't")?"alert alert-danger" : "alert alert-success"}
+                                className={message.includes("couldn't") ? "alert alert-danger" : "alert alert-success"}
                                 role="alert"
                             >
                                 {message}
