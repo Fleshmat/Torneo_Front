@@ -32,11 +32,12 @@ export const TrainerProvider = ({ children }) => {
                 console.error("No valid team data found");
                 return;
             }
-            // createTeam(data);
-            setTrainer((prev) => ({ ...prev, team: data.id }));
+            setTrainer((prev) => ({ ...prev, team: data.equipoSeleccionado }));
             console.log("Team fetched successfully", data);
+            return data.equipoSeleccionado;
         } catch (error) {
             console.error("Error fetching team:", error);
+            return null;
         }
     }
 

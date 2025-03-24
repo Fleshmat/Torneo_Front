@@ -16,30 +16,32 @@ export const TrainersRegisterModal = ({
     };
 
     const handleSetTrainer = async () => {
-        setMessage("");
         try {
             const trainerData = await searchTrainer(email);
-
             if (trainerData) {
-                
                 setMessage("Mr. Trainer, we found you! :D");
                 setEmail('');
                 setTrainer((prev) => ({ ...prev, id: trainerData.id, name: trainerData.name }));
-                await fetchingTeam(trainer.id);
-                const teamData = await createTeam(trainer.team);
+                const teamId = await fetchingTeam(trainerData.id);
+                console.log(teamId);
+                const teamData = await createTeam(teamId);
                 console.log(teamData);
-                debugger;
-                if (!teamData) {
+                if (teamData) {
+                    console.log(teamData);
+                    await createTrainer();
+                } else {
                     throw new Error("Failed to create team");
                 }
-                await createTrainer();
             } else {
                 setMessage("Mr. Trainer, we couldn't create your team correctly:(");
             }
 
-        } catch (error) {
+            setMessage("Mr. Trainer, we couldn't find you. Please check your email and try again.");
             setMessage("Mr. Trainer, we couldn't find you correctly:(");
             console.error("Server failed:(", error);
+        } catch (error) {
+            console.error("An error occurred:", error);
+            setMessage("Mr. Trainer, something went wrong. Please try again later.");
         }
     }
 
