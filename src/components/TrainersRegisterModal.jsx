@@ -34,10 +34,7 @@ export const TrainersRegisterModal = ({
                 }
 
                 console.log(teamData);
-                debugger;
-                if (!teamData) {
-                    throw new Error("Failed to create team");
-                }
+                
                 await createTrainer();
             } else {
                 setMessage("Mr. Trainer, we couldn't save you correctly:(");
