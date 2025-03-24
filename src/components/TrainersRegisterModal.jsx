@@ -6,7 +6,7 @@ export const TrainersRegisterModal = ({
     isOpen, onClose, onConfirm
 }) => {
 
-    const { searchTrainer, fetchingTeam } = useContext(TrainerContext);
+    const { searchTrainer, fetchingTeam, trainer, createTeam, setTrainer, createTrainer } = useContext(TrainerContext);
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
 
@@ -19,12 +19,22 @@ export const TrainersRegisterModal = ({
         setMessage("");
         try {
             const trainerData = await searchTrainer(email);
+
             if (trainerData) {
-                await fetchingTeam(trainerData.id);
+                
                 setMessage("Mr. Trainer, we found you! :D");
                 setEmail('');
+                setTrainer((prev) => ({ ...prev, id: trainerData.id, name: trainerData.name }));
+                await fetchingTeam(trainer.id);
+                const teamData = await createTeam(trainer.team);
+                console.log(teamData);
+                debugger;
+                if (!teamData) {
+                    throw new Error("Failed to create team");
+                }
+                await createTrainer();
             } else {
-                setMessage("Mr. Trainer, we couldn't find you correctly:(");
+                setMessage("Mr. Trainer, we couldn't create your team correctly:(");
             }
 
         } catch (error) {
@@ -54,7 +64,7 @@ export const TrainersRegisterModal = ({
                                 required
                                 onChange={handleInputChange}
                                 value={email}
-                                placeholder='Mr. Trainerlease enter your email. :3'
+                                placeholder='Mr. Trainer, please enter your email. :3'
                             />
                         </div>
                         {message && (

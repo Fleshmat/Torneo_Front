@@ -21,7 +21,7 @@ mockTeams.onGet(/\/trainer\/\d+/).reply((config) => {
     const trainerId = config.url.split("/").pop();
     const team = trainerTeams.find((team) => team.entrenadorId === Number(trainerId));
     if (team) {
-        return [200, team.equipoSeleccionado];
+        return [200, team];
     }
     console.error(`No team found for trainerId: ${trainerId}`);
     return [404, { message: "Team not found" }];

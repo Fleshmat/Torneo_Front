@@ -15,8 +15,19 @@ const TeamService = {
         },
     
         createTeam: async (team) => {
+            if (!team || typeof team !== 'string') {
+                throw new Error("Invalid team ID");
+            }
+
             try {
-                const response = await axios.post(API_URL, team);
+                const newTeam = {
+                    id: team,
+                }
+                const response = await axios.post(API_URL, newTeam,{
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
                 return response.data;
             } catch (error) {
                 console.error("Error creating team:", error);
