@@ -182,6 +182,7 @@ export default function TournamentBracket() {
             </div>
             <div id="10" className="bracket-team">
               <div className="bracket-name">{getTrainerNameEvolvep(1, 8,'secondParticipant')}</div>
+              
             </div>
           </div>
           <div className="bracket-matchup" />

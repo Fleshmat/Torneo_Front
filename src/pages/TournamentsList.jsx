@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Modal } from "../components/Modal";
 import { tournamentService } from "../assets/api/TournamentService";
 import { useTorneoContext } from "../contexts/TorneoContext";
-import { TrainersRegisterModal } from "../components/TrainersRegisterModal";
+import { TrainersRegisterModal } from "../Components/TrainersRegisterModal";
 import { TrainerContext } from "../contexts/TrainerProvider";
 import axios from "axios";
 

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { TrainerContext } from '../contexts/TrainerProvider';
 import apiTrainer from '../mocks/apiTrainerMock';
 
@@ -6,7 +6,7 @@ export const TrainersRegisterModal = ({
     isOpen, onClose, onConfirm
 }) => {
 
-    const { searchTrainer, fetchingTeam, trainer, createTeam, setTrainer, createTrainer } = useContext(TrainerContext);
+    const { searchTrainer, fetchingTeam, trainer, trainerUpdated,createTeam, setTrainer, createTrainer } = useContext(TrainerContext);
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
 
@@ -15,6 +15,15 @@ export const TrainersRegisterModal = ({
         setEmail(e.target.value);
     };
 
+    // useEffect(() => {
+    //     const handleTrainerUpdate = async () => {
+    //         if (trainerUpdated) {
+    //             await createTrainer();
+    //         }
+    //     };
+    //     handleTrainerUpdate();
+    // }, [trainerUpdated]);
+
     const handleSetTrainer = async () => {
         try {
             const trainerData = await searchTrainer(email);
@@ -22,23 +31,18 @@ export const TrainersRegisterModal = ({
                 setMessage("Mr. Trainer, we found you! :D");
                 setEmail('');
                 setTrainer((prev) => ({ ...prev, id: trainerData.id, name: trainerData.name }));
-                const teamId = await fetchingTeam(trainerData.id);
-                console.log(teamId);
-                const teamData = await createTeam(teamId);
-                console.log(teamData);
-                if (teamData) {
-                    console.log(teamData);
-                    await createTrainer();
-                } else {
-                    throw new Error("Failed to create team");
+                const teamId = await fetchingTeam(trainerData.id);            
+                const teamData = await createTeam(teamId.equipoSeleccionado);
+                const trainerToCreate = {
+                    id: trainerData.id,
+                    team: teamData.id,
+                    name: `${trainerData.first_name} ${trainerData.last_name}`,
                 }
+                console.log(trainerToCreate);
+                await createTrainer(trainerToCreate);
             } else {
                 setMessage("Mr. Trainer, we couldn't save you correctly:(");
             }
-
-            setMessage("Mr. Trainer, we couldn't find you. Please check your email and try again.");
-            setMessage("Mr. Trainer, we couldn't find you correctly:(");
-            console.error("Server failed:(", error);
         } catch (error) {
             console.error("An error occurred:", error);
             setMessage("Mr. Trainer, something went wrong. Please try again later.");

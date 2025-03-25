@@ -12,6 +12,7 @@ export const TrainerProvider = ({ children }) => {
         team: null,
         name: "",
     });
+    const [trainerUpdated, setTrainerUpdated] = useState(false);
 
 
     const searchTrainer = async (email) => {
@@ -25,7 +26,7 @@ export const TrainerProvider = ({ children }) => {
         }
     };
 
-    const fetchingTeam = async(trainerId)=>{
+    const fetchingTeam = async (trainerId) => {
         try {
             const { data } = await apiTeams.get(`/trainer/${trainerId}`);
             if (!data || typeof data.id === "undefined") {
@@ -33,8 +34,9 @@ export const TrainerProvider = ({ children }) => {
                 return;
             }
             setTrainer((prev) => ({ ...prev, team: data.equipoSeleccionado }));
+            setTrainerUpdated(true);
             console.log("Team fetched successfully", data);
-            return data.equipoSeleccionado;
+            return data
         } catch (error) {
             console.error("Error fetching team:", error);
             return null;
@@ -42,7 +44,7 @@ export const TrainerProvider = ({ children }) => {
     }
 
 
-    const createTeam = async(teamId)=>{
+    const createTeam = async (teamId) => {
         console.log(teamId);
         try {
             const { data } = await TeamService.createTeam(teamId);
@@ -52,13 +54,11 @@ export const TrainerProvider = ({ children }) => {
         }
     }
 
-    
 
-    const createTrainer = async () => {
+
+    const createTrainer = async (trainerData) => {
         try {
-            console.log("Creating trainer...");
-            
-            const { status } = await TrainerService.createTrainer(trainer);
+            const { status } = await TrainerService.createTrainer(trainerData);
             if (status === 201) {
                 console.log("Trainer created successfully");
             }
@@ -69,7 +69,7 @@ export const TrainerProvider = ({ children }) => {
 
 
     return (
-        <TrainerContext.Provider value={{ trainer, setTrainer, searchTrainer, fetchingTeam, createTrainer, createTeam }}>
+        <TrainerContext.Provider value={{ trainer, trainerUpdated, setTrainerUpdated, setTrainer, searchTrainer, fetchingTeam, createTrainer, createTeam }}>
             {children}
         </TrainerContext.Provider>
     );

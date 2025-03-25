@@ -17,12 +17,7 @@ const TrainerService = {
 
     createTrainer: async (trainer) => {
         try {
-            const newTrainer = {
-                id: trainer.id,
-                team: trainer.team,
-                name: `${trainer.first_name} ${trainer.last_name}`,
-            }
-            const response = await axios.post(API_URL, newTrainer);
+            const response = await axios.post(API_URL, trainer);
             return response;
         } catch (error) {
             console.error("Error creating trainer:", error);
