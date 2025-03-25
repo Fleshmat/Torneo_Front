@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: .
+    ports:
+      - "5173:5173"  # Exponer el puerto de Vite
+    volumes:
+      - .:/app  # Montar el código fuente para hot reload
+      - /app/node_modules  # Evitar sobrescribir node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true  # Permite hot reload en Docker

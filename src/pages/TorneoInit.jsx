@@ -90,7 +90,6 @@ export default function TournamentBracket() {
       }, 100);
 
     }
-
     setIndiceGrupo(prev => prev + 1);
   }
 

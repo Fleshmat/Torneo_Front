@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Modal } from "../components/Modal";
+// import { Modal } from "../components/Modal";
 import { tournamentService } from "../assets/api/TournamentService";
 import { useTorneoContext } from "../contexts/TorneoContext";
 import { TrainersRegisterModal } from "../Components/TrainersRegisterModal";
