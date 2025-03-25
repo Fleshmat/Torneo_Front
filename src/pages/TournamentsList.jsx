@@ -38,8 +38,13 @@ export const TournamentsList = () => {
 
   const handleClickRegister = async (tournamentId) => {
     try {
-      const response = await axios.post(`http://localhost:8080/api/tournament/register/${tournamentId}`, trainer?.id)
-      if (response.status === 200) {
+    const delayedRequest = new Promise((resolve) => setTimeout(resolve, 2000));
+    await delayedRequest;
+    const response = await axios.post(
+      `http://localhost:8080/api/tournament/register/${tournamentId}`, 
+      { trainerId: trainer?.id }, 
+      { headers: { "Content-Type": "application/json" } });
+    if (response.status === 200) {
         setTrainerRegisterModalIsOpen(false);
         console.log("Registering to tournament with id", tournamentId);
         setAlertMessage("You have been registered to the tournament");

@@ -6,7 +6,7 @@ export const TrainersRegisterModal = ({
     isOpen, onClose, onConfirm
 }) => {
 
-    const { searchTrainer, fetchingTeam, trainer, trainerUpdated,createTeam, setTrainer, createTrainer } = useContext(TrainerContext);
+    const { searchTrainer, fetchingTeam, trainer, trainerUpdated, createTeam, setTrainer, createTrainer } = useContext(TrainerContext);
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
 
@@ -31,7 +31,7 @@ export const TrainersRegisterModal = ({
                 setMessage("Mr. Trainer, we found you! :D");
                 setEmail('');
                 setTrainer((prev) => ({ ...prev, id: trainerData.id, name: trainerData.name }));
-                const teamId = await fetchingTeam(trainerData.id);            
+                const teamId = await fetchingTeam(trainerData.id);
                 const teamData = await createTeam(teamId.equipoSeleccionado);
                 const trainerToCreate = {
                     id: trainerData.id,
@@ -86,10 +86,11 @@ export const TrainersRegisterModal = ({
                         <button type="button" className="btn btn-secondary" onClick={onClose}>
                             Cancelar
                         </button>
-                        <button type="button" className="btn btn-danger" onClick={() => {
-                            handleSetTrainer();
-                            onConfirm;
+                        <button type="button" className="btn btn-danger" onClick={async () => {
+                            await handleSetTrainer(); 
+                            onConfirm();
                         }}>
+
                             Confirmar
                         </button>
                     </div>
