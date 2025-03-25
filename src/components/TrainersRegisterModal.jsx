@@ -1,36 +1,47 @@
 import React, { useContext, useState } from 'react'
 import { TrainerContext } from '../contexts/TrainerProvider';
-import api from '../mocks/apiTrainerMock';
+import apiTrainer from '../mocks/apiTrainerMock';
 
 export const TrainersRegisterModal = ({
     isOpen, onClose, onConfirm
 }) => {
 
-    const { setTrainer } = useContext(TrainerContext);
+    const { searchTrainer, fetchingTeam, trainer, createTeam, setTrainer, createTrainer } = useContext(TrainerContext);
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
 
 
     const handleInputChange = (e) => {
-        const { value } = e.target;
-        setEmail(value);
+        setEmail(e.target.value);
     };
 
     const handleSetTrainer = async () => {
         try {
-            const response = await api.get(`/trainer/${email}`);
-            if (response.status === 200) {
-                setTrainer(response.data);
-                setMessage("Mr. Trainer, we found you correctly and you have been registered:3");
-                console.log("Mr. Trainer, we found you correctly:3");
-                setEmail("");
+            const trainerData = await searchTrainer(email);
+            if (trainerData) {
+                setMessage("Mr. Trainer, we found you! :D");
+                setEmail('');
+                setTrainer((prev) => ({ ...prev, id: trainerData.id, name: trainerData.name }));
+                const teamId = await fetchingTeam(trainerData.id);
+                console.log(teamId);
+                const teamData = await createTeam(teamId);
+                console.log(teamData);
+                if (teamData) {
+                    console.log(teamData);
+                    await createTrainer();
+                } else {
+                    throw new Error("Failed to create team");
+                }
             } else {
-                setMessage("Mr. Trainer, we couldn't find you correctly:3");
+                setMessage("Mr. Trainer, we couldn't save you correctly:(");
             }
 
-        } catch (error) {
+            setMessage("Mr. Trainer, we couldn't find you. Please check your email and try again.");
             setMessage("Mr. Trainer, we couldn't find you correctly:(");
             console.error("Server failed:(", error);
+        } catch (error) {
+            console.error("An error occurred:", error);
+            setMessage("Mr. Trainer, something went wrong. Please try again later.");
         }
     }
 
@@ -60,7 +71,7 @@ export const TrainersRegisterModal = ({
                         </div>
                         {message && (
                             <div
-                                className={ message.includes("couldn't")?"alert alert-danger" : "alert alert-success"}
+                                className={message.includes("couldn't") ? "alert alert-danger" : "alert alert-success"}
                                 role="alert"
                             >
                                 {message}

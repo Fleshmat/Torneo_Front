@@ -3,12 +3,12 @@ import MockAdapter from "axios-mock-adapter";
 
 
 //Creamos la instancia de la API fake con axios
-const api = axios.create({
+const apiTrainer = axios.create({
     baseURL: "http://api/trainers",
 });
 
 //Creamos la instracia para mockear las peticiones
-const mockTrainer = new MockAdapter(api);
+const mockTrainer = new MockAdapter(apiTrainer);
 
 const trainers = [
     {id:1,birth_date:"1990-01-01",email:"ash.ketchum@example.com",first_name:"Ash",last_name:"Ketchum"},
@@ -40,6 +40,6 @@ mockTrainer.onGet(/\/trainer\/\w+/).reply((config) => {
 });
     
 
-export default api;
+export default apiTrainer;
 
 
