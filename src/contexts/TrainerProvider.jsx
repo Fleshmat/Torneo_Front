@@ -7,12 +7,8 @@ import apiTrainer from "../mocks/apiTrainerMock";
 export const TrainerContext = createContext();
 
 export const TrainerProvider = ({ children }) => {
-    const [trainer, setTrainer] = useState({
-        id: "",
-        team: null,
-        name: "",
-    });
-    const [trainerUpdated, setTrainerUpdated] = useState(false);
+    const [trainer, setTrainer] = useState({localStorage: localStorage.getItem("trainer")});
+
 
 
     const searchTrainer = async (email) => {
@@ -33,8 +29,6 @@ export const TrainerProvider = ({ children }) => {
                 console.error("No valid team data found");
                 return;
             }
-            setTrainer((prev) => ({ ...prev, team: data.equipoSeleccionado }));
-            setTrainerUpdated(true);
             console.log("Team fetched successfully", data);
             return data
         } catch (error) {
@@ -69,7 +63,7 @@ export const TrainerProvider = ({ children }) => {
 
 
     return (
-        <TrainerContext.Provider value={{ trainer, trainerUpdated, setTrainerUpdated, setTrainer, searchTrainer, fetchingTeam, createTrainer, createTeam }}>
+        <TrainerContext.Provider value={{ trainer, setTrainer, searchTrainer, fetchingTeam, createTrainer, createTeam }}>
             {children}
         </TrainerContext.Provider>
     );

@@ -40,6 +40,7 @@ export const TrainersRegisterModal = ({
                 }
                 console.log(trainerToCreate);
                 await createTrainer(trainerToCreate);
+                localStorage.setItem("trainer", JSON.stringify(trainerToCreate));
             } else {
                 setMessage("Mr. Trainer, we couldn't save you correctly:(");
             }

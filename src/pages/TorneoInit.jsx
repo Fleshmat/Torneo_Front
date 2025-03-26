@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TournamentRegistrationService from "../assets/api/TournamentRegistrationService";
 import { useTorneoContext } from "../contexts/TorneoContext";
-
+import pokemonChampion from "../assets/pokemon_championships.png" ; 
 
 export default function TournamentBracket() {
 
@@ -212,7 +212,7 @@ export default function TournamentBracket() {
         {/* Nivel 4 */}
         <div className="bracket-level">
           <div>
-            <img src="src/assets/pokemon_championships.png" alt="Torneo pokemon" width={150} />
+            <img src={pokemonChampion} alt="Torneo pokemon" width={150} />
           </div>
           <div className="bracket-matchup">
             <div id="30" className="bracket-team">
@@ -306,7 +306,6 @@ export default function TournamentBracket() {
           <div className="bracket-matchup" />
         </div>
       </div>
-      <button className="battle" onClick={nextPosition}>Iniciar batalla</button>
     </div>
   );
 }

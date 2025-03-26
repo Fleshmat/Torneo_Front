@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-// import { Modal } from "../components/Modal";
+import { Modal } from "../Components/Modal";
 import { tournamentService } from "../assets/api/TournamentService";
 import { useTorneoContext } from "../contexts/TorneoContext";
 import { TrainersRegisterModal } from "../Components/TrainersRegisterModal";
@@ -35,14 +35,14 @@ export const TournamentsList = () => {
   }
 
   const [alertMessage, setAlertMessage] = useState("");
+  const [alertError, setAlertError] = useState("");
 
   const handleClickRegister = async (tournamentId) => {
     try {
-    const delayedRequest = new Promise((resolve) => setTimeout(resolve, 2000));
-    await delayedRequest;
+    const trainerID = JSON.parse(localStorage.getItem("trainer"));
     const response = await axios.post(
-      `http://localhost:8080/api/tournament/register/${tournamentId}`, 
-      { trainerId: trainer?.id }, 
+      `https://tournaments-cwe7cmcagfhzd5dc.eastus2-01.azurewebsites.net/api/tournament/register/${tournamentId}`, 
+      { trainerId: trainerID.id }, 
       { headers: { "Content-Type": "application/json" } });
     if (response.status === 200) {
         setTrainerRegisterModalIsOpen(false);
@@ -53,8 +53,13 @@ export const TournamentsList = () => {
         }, 3000);
       }
     } catch (error) {
-      setAlertMessage("Error al procesar la solicitud");
-      console.error("Error registering to tournament", error);
+      setTrainerRegisterModalIsOpen(false);
+      console.log(error)
+      setAlertError(error.response.data.message);
+      setTimeout(() => {
+        setAlertError("");
+      }, 3000);
+      console.error("Error registering to tournament", error.response.data.message);
     }
   };
 
@@ -69,6 +74,16 @@ export const TournamentsList = () => {
             role="alert"
           >
             {alertMessage}
+          </div>
+        )}
+      </div>
+      <div>
+        {alertError && (
+          <div
+            className="alert alert-danger"
+            role="alert"
+          >
+            {alertError}
           </div>
         )}
       </div>

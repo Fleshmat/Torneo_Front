@@ -1,20 +1,29 @@
-# Usa Node.js como base
-FROM node:18
+# 1. Usa una imagen de Node para construir la app
+FROM node:18 AS builder
 
-# Define el directorio de trabajo dentro del contenedor
+# 2. Define el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copia los archivos de dependencias
+# 3. Copia el package.json y el package-lock.json (o yarn.lock)
 COPY package.json package-lock.json* ./
 
-# Instala dependencias
+# 4. Instala las dependencias
 RUN npm install
 
-# Copia el código fuente al contenedor
+# 5. Copia el código fuente
 COPY . .
 
-# Expone el puerto de Vite (5173 por defecto)
-EXPOSE 5173
+# 6. Construye la aplicación
+RUN npm run build
 
-# Comando para iniciar Vite en modo desarrollo
-CMD ["npm", "run", "dev", "--", "--host"]
+# 7. Usa una imagen de Nginx para servir los archivos estáticos
+FROM nginx:alpine
+
+# 8. Copia los archivos generados en la carpeta 'dist' al servidor Nginx
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# 9. Expone el puerto 80
+EXPOSE 80
+
+# 10. Arranca Nginx
+CMD ["nginx", "-g", "daemon off;"]
